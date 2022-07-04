@@ -9,6 +9,8 @@
     <Import_RootNamespace>TheBlackRoom.WinForms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\UIThread.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\SetIconSpacing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />

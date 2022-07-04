@@ -20,37 +20,42 @@
  * SOFTWARE.
  */
 using System;
-using System.Runtime.InteropServices;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Forms;
 
-namespace TheBlackRoom.WinForms
+namespace TheBlackRoom.WinForms.Controls
 {
-    internal class NativeMethods
+    /// <summary>
+    /// Extended ListView
+    ///
+    /// New Events:
+    ///   ViewChanged
+    /// </summary>
+    public class ExtendedListView : ListView
     {
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        /// <summary>
+        /// Occurs when the View property has changed
+        /// </summary>
+        [Category("Behavior")]
+        [Description("Occurs when the View property has changed.")]
+        public event EventHandler<ViewEventArgs> ViewChanged;
 
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
+        protected virtual void OnViewChanged(ViewEventArgs e)
         {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
+            ViewChanged?.Invoke(this, e);
         }
 
-        public const int WM_MOUSEACTIVATE = 0x0021;
-        public const int WM_CONTEXTMENU = 0x007B;
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
 
-        public const int WM_MBUTTONDOWN = 0x0207;
-        public const int WM_MBUTTONUP = 0x0208;
-        public const int WM_MBUTTONDBLCLK = 0x0209;
-
-        /* ListView */
-        public const int LVM_FIRST = 0x1000;
-        public const int LVM_SETICONSPACING = LVM_FIRST + 53;
-        public const int LVM_SETVIEW = LVM_FIRST + 142;
+            switch (m.Msg)
+            {
+                case NativeMethods.LVM_SETVIEW:
+                    OnViewChanged(new ViewEventArgs((View)m.WParam));
+                    break;
+            }
+        }
     }
 }

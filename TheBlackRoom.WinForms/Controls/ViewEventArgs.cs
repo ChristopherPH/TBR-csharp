@@ -20,37 +20,17 @@
  * SOFTWARE.
  */
 using System;
-using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
-namespace TheBlackRoom.WinForms
+namespace TheBlackRoom.WinForms.Controls
 {
-    internal class NativeMethods
+    public class ViewEventArgs : EventArgs
     {
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
+        public ViewEventArgs(View view)
         {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
+            this.View = view;
         }
 
-        public const int WM_MOUSEACTIVATE = 0x0021;
-        public const int WM_CONTEXTMENU = 0x007B;
-
-        public const int WM_MBUTTONDOWN = 0x0207;
-        public const int WM_MBUTTONUP = 0x0208;
-        public const int WM_MBUTTONDBLCLK = 0x0209;
-
-        /* ListView */
-        public const int LVM_FIRST = 0x1000;
-        public const int LVM_SETICONSPACING = LVM_FIRST + 53;
-        public const int LVM_SETVIEW = LVM_FIRST + 142;
+        public View View { get; }
     }
 }
