@@ -50,6 +50,7 @@ namespace TheBlackRoom.WinForms
 
         /* ListView */
         public const int LVM_FIRST = 0x1000;
+        public const int LVM_GETHEADER = LVM_FIRST + 31;
         public const int LVM_SETICONSPACING = LVM_FIRST + 53;
         public const int LVM_SETVIEW = LVM_FIRST + 142;
     }

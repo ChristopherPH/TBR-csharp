@@ -31,6 +31,7 @@ namespace TheBlackRoom.WinForms.Controls
     ///
     /// New Events:
     ///   ViewChanged
+    ///   ColumnRightClick
     /// </summary>
     public class ExtendedListView : ListView
     {
@@ -46,6 +47,63 @@ namespace TheBlackRoom.WinForms.Controls
             ViewChanged?.Invoke(this, e);
         }
 
+        protected virtual void OnColumnRightClick(ColumnClickEventArgs e)
+        {
+            ColumnRightClick?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// Occurs when a column header is right clicked
+        /// </summary>
+        [Category("Action")]
+        [Description("Occurs when a column header is right clicked.")]
+        public event ColumnClickEventHandler ColumnRightClick;
+
+        /// <summary>
+        /// Checks WM_CONTEXTMENU to determine if click was on a header, and
+        /// triggers ColumnRightClick event if so.
+        /// </summary>
+        /// <returns>True if click was on the header region</returns>
+        private bool HandleColumnRightClick(Message m)
+        {
+            if (!this.IsHandleCreated)
+                return false;
+
+            /* The listview has 2 window handles, the main
+             * handle, and the header handle. If the clicked
+             * window is on the main window, ignore the click.
+             * Otherwise, we must be on the header.
+             * We could also use LVM_GETHEADER message to get
+             * the handle to the header from the listview handle.
+             */
+            if (m.WParam == this.Handle)
+                return false;
+
+            if (!NativeMethods.GetWindowRect(m.WParam, out var rect))
+                return true;
+
+            var currentPosition = 0;
+
+            /* Check each column position to see if the click
+             * occured on that column.
+             */
+            foreach (var column in this.Columns
+                .OfType<ColumnHeader>()
+                .OrderBy(x => x.DisplayIndex))
+            {
+                currentPosition += column.Width;
+
+                //Check if the header position has exceeded the click location
+                if (currentPosition > (MousePosition.X - rect.Left))
+                {
+                    OnColumnRightClick(new ColumnClickEventArgs(this.Columns.IndexOf(column)));
+                    break;
+                }
+            }
+
+            return true;
+        }
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -54,6 +112,10 @@ namespace TheBlackRoom.WinForms.Controls
             {
                 case NativeMethods.LVM_SETVIEW:
                     OnViewChanged(new ViewEventArgs((View)m.WParam));
+                    break;
+
+                case NativeMethods.WM_CONTEXTMENU:
+                    HandleColumnRightClick(m);
                     break;
             }
         }
