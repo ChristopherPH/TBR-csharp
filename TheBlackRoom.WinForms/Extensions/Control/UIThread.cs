@@ -29,7 +29,8 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <summary>
         /// Runs a delegate on the UI thread if needed, to avoid cross thread exceptions
         /// </summary>
-        public static void UIThread(this Control ctrl, MethodInvoker action)
+        /// <returns>true if delegate called, false if not</returns>
+        public static bool UIThread(this Control ctrl, MethodInvoker action)
         {
             if (ctrl is null)
                 throw new ArgumentNullException(nameof(ctrl));
@@ -37,8 +38,11 @@ namespace TheBlackRoom.WinForms.Extensions
             if (action is null)
                 throw new ArgumentNullException(nameof(action));
 
+            if (ctrl.IsDisposed)
+                return false;
+
             if (!ctrl.IsHandleCreated)
-                throw new ArgumentException("Invalid Handle", nameof(ctrl));
+                return false;
 
             if (ctrl.InvokeRequired)
             {
@@ -48,6 +52,8 @@ namespace TheBlackRoom.WinForms.Extensions
             {
                 action();
             }
+
+            return true;
         }
     }
 }
