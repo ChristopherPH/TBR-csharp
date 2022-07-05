@@ -39,6 +39,10 @@ namespace TheBlackRoom.WinForms.Extensions
         {
             float smallIconWidth = 0;
 
+            //ensure we have items to check
+            if (listView.Items.Count == 0)
+                return;
+
             //get width of largest item
             using (var g = listView.CreateGraphics())
                 smallIconWidth = listView.Items
