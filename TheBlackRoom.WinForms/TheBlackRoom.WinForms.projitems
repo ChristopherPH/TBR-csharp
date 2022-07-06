@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\UIThread.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\FixGroupedSmallIconColumns.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\SetIconSpacing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\TableLayoutPanelHelpers\TableLayoutPanelRowCollapser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
