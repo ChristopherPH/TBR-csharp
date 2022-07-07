@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -45,6 +46,13 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
         public TableLayoutPanelRowCollapser(TableLayoutPanel tableLayoutPanel)
         {
             this._tableLayoutPanel = tableLayoutPanel;
+        }
+
+        public event EventHandler<EventArgs> RowsChanged;
+
+        protected void OnRowChanged()
+        {
+            RowsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -136,6 +144,8 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
                 cr.ShowRow();
 
             _tableLayoutPanel.ResumeLayout();
+
+            OnRowChanged();
         }
 
         /// <summary>
@@ -150,6 +160,8 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
                 cr.HideRow();
 
             _tableLayoutPanel.ResumeLayout();
+
+            OnRowChanged();
         }
 
         /// <summary>
@@ -170,6 +182,8 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
                 crr.HideRow();
 
             _tableLayoutPanel.ResumeLayout();
+
+            OnRowChanged();
         }
 
 
@@ -193,6 +207,8 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
                     crr.ShowRow();
 
             _tableLayoutPanel.ResumeLayout();
+
+            OnRowChanged();
         }
 
         /// <summary>
@@ -212,6 +228,8 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
             cr.HideRow();
 
             _tableLayoutPanel.ResumeLayout();
+
+            OnRowChanged();
         }
 
         /// <summary>
@@ -241,6 +259,8 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
             }
 
             _tableLayoutPanel.ResumeLayout();
+
+            OnRowChanged();
         }
 
         public bool IsHidden(int rowIndex)
