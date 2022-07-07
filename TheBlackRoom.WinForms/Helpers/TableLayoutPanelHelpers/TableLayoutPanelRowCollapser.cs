@@ -60,14 +60,14 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
         /// <summary>
         /// Adds a row to be part of the expand/collapse system
         /// </summary>
-        public bool AddCollapsibleRow(int rowIndex)
+        public int AddCollapsibleRow(int rowIndex)
         {
             if ((rowIndex < 0) || (rowIndex >= _tableLayoutPanel.RowCount) ||
                 (rowIndex >= _tableLayoutPanel.RowStyles.Count))
-                return false;
+                return -1;
 
             if (_collapsibleRows.ContainsKey(rowIndex))
-                return false;
+                return -1;
 
             var rowStyle = _tableLayoutPanel.RowStyles[rowIndex];
 
@@ -81,7 +81,7 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
                 },
             };
 
-            return true;
+            return rowIndex;
         }
 
         /// <summary>
@@ -99,38 +99,39 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
             if (rowIndex == -1)
                 return -1;
 
-            if (!AddCollapsibleRow(rowIndex))
-                return -1;
-
-            return rowIndex;
+            return AddCollapsibleRow(rowIndex);
         }
 
-        public bool AddCollapsibleRows(params int[] rowIndicies)
+        public int[] AddCollapsibleRows(params int[] rowIndicies)
         {
-            if ((rowIndicies == null) || (rowIndicies.Length == 0))
-                return false;
+            var rc = new List<int>();
 
-            bool rc = true;
+            if ((rowIndicies != null) && (rowIndicies.Length > 0))
+            {
+                foreach (var rowIndex in rowIndicies)
+                    if (AddCollapsibleRow(rowIndex) != -1)
+                        rc.Add(rowIndex);
+            }
 
-            foreach (var rowIndex in rowIndicies)
-                if (!AddCollapsibleRow(rowIndex))
-                    rc = false;
-
-            return rc;
+            return rc.ToArray();
         }
 
-        public bool AddCollapsibleRows(params Control[] controls)
+        public int[] AddCollapsibleRows(params Control[] controls)
         {
-            if ((controls == null) || (controls.Length == 0) || controls.Any(x => x == null))
-                return false;
+            var rc = new List<int>();
 
-            bool rc = true;
+            if ((controls != null) && (controls.Length >= 0))
+            {
+                foreach (var ctrl in controls)
+                {
+                    var ix = AddCollapsibleRow(ctrl);
+                    if (ix != -1)
+                        rc.Add(ix);
+                }
 
-            foreach (var ctrl in controls)
-                if (AddCollapsibleRow(ctrl) == -1)
-                    rc = false;
+            }
 
-            return rc;
+            return rc.ToArray();
         }
 
         /// <summary>
@@ -250,6 +251,14 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
             }
 
             _tableLayoutPanel.ResumeLayout();
+        }
+
+        public bool IsHidden(int rowIndex)
+        {
+            if (!_collapsibleRows.TryGetValue(rowIndex, out var cr))
+                return false;
+
+            return cr.IsHidden;
         }
 
         /// <summary>
