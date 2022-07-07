@@ -20,6 +20,7 @@
  * SOFTWARE.
  */
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -29,6 +30,8 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
     /// Helper class for TableLayoutPanels, that allows rows to be collapsed/expanded
     ///
     /// Note: This should be instantiated once the TableLayoutPanel has been fully set up
+    /// Note: There should be one empty row at the end of the TableLayoutPanel that can
+    ///       expand to fill any empty space
     /// </summary>
     public class TableLayoutPanelRowCollapser
     {
@@ -39,22 +42,9 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
         /// Creates a new instance of the class
         /// </summary>
         /// <param name="addEmptyRow">If true, adds an empty row at the end of the TableLayoutPanel</param>
-        public TableLayoutPanelRowCollapser(TableLayoutPanel tableLayoutPanel, bool addEmptyRow = true)
+        public TableLayoutPanelRowCollapser(TableLayoutPanel tableLayoutPanel)
         {
             this._tableLayoutPanel = tableLayoutPanel;
-
-            if (addEmptyRow)
-                AddEmptyRow();
-        }
-
-        /// <summary>
-        /// Adds an empty row so the empty row can expand to fill any remaining space, instead of the
-        /// last row of the TableLayoutPanel
-        /// </summary>
-        public void AddEmptyRow()
-        {
-            _tableLayoutPanel.RowCount++;
-            _tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         }
 
         /// <summary>
