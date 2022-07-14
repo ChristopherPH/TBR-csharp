@@ -10,11 +10,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedRichTextBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\SetDoubleBuffered.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\UIThread.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\FixGroupedSmallIconColumns.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\SetIconSpacing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_AppendRTF.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TableLayoutPanelHelpers\TableLayoutPanelRowCollapser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
   </ItemGroup>
