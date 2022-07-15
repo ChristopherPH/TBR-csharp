@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedRichTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedToolStrip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\SetDoubleBuffered.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\UIThread.cs" />
