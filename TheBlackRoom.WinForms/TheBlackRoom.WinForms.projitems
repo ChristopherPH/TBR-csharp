@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedRichTextBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedToolStrip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedTreeView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\NativeTreeView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\SetDoubleBuffered.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\UIThread.cs" />

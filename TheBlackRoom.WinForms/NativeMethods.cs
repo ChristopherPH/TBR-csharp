@@ -53,5 +53,10 @@ namespace TheBlackRoom.WinForms
         public const int LVM_GETHEADER = LVM_FIRST + 31;
         public const int LVM_SETICONSPACING = LVM_FIRST + 53;
         public const int LVM_SETVIEW = LVM_FIRST + 142;
+
+        /* Misc */
+        [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
+        public extern static int SetWindowTheme(IntPtr hWnd, string pszSubAppName,
+            string pszSubIdList);
     }
 }
