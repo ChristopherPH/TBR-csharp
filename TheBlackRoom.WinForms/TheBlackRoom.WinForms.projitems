@@ -22,10 +22,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\FixGroupedSmallIconColumns.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\SetIconSpacing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_AppendRTF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawColumnHeaderEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawItemDetailsEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawItemEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawItemTileEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawSelectedItemDetailsFullRowBackgroundEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawUtility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TableLayoutPanelHelpers\TableLayoutPanelRowCollapser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\README.txt" />
     <Content Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
