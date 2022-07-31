@@ -102,7 +102,8 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
 
             //Check certain conditions of the item and
             //listview to return a special colour
-            if (CheckState(ListViewItemStates.Selected) && (EventArgs.ColumnIndex == 0))
+            if (CheckState(ListViewItemStates.Selected) &&
+                (listView.FullRowSelect || (ColumnIndex == 0)))
             {
                 if (listView.Focused || !listView.Enabled)
                 {
