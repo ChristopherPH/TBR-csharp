@@ -60,7 +60,7 @@ namespace TheBlackRoom.WinForms.Extensions
                 listView.Columns[0].Width = (int)Math.Ceiling(smallIconWidth);
 
             //trigger a redisplay of the view
-            listView.ArrangeIcons(ListViewAlignment.SnapToGrid);
+            listView.ArrangeIcons(listView.Alignment);
         }
     }
 }
