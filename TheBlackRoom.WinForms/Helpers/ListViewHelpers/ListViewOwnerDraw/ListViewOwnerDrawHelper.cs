@@ -243,18 +243,19 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
              */
             if (lv.View == View.Details)
             {
-                if (lv.FullRowSelect && e.Item.Selected)
-                {
-                    var backgroundargs = new ListViewOwnerDrawSelectedItemDetailsFullRowBackgroundEventArgs(e);
+                //Handle View.Details drawing in DrawSubItem(), not here
+                if ((!lv.Focused && lv.HideSelection) ||
+                    !(lv.FullRowSelect && e.Item.Selected))
+                    return;
 
-                    if (OnOwnerDrawSelectedItemDetailsFullRowBackground(backgroundargs))
-                    {
-                        backgroundargs.DrawBackground();
-                        backgroundargs.DrawFocusRectangle();
-                    }
+                var backgroundargs = new ListViewOwnerDrawSelectedItemDetailsFullRowBackgroundEventArgs(e);
+
+                if (OnOwnerDrawSelectedItemDetailsFullRowBackground(backgroundargs))
+                {
+                    backgroundargs.DrawBackground();
+                    backgroundargs.DrawFocusRectangle();
                 }
 
-                //Handle View.Details drawing in DrawSubItem(), not here
                 return;
             }
 
