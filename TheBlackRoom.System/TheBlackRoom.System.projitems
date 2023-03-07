@@ -13,7 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerable_T\Concat.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\Enum\" />

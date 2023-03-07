@@ -33,8 +33,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\README.txt" />
-    <Content Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
+    <None Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\README.txt" />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\Control\" />

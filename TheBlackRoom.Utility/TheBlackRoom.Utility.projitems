@@ -12,6 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Profiler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
   </ItemGroup>
 </Project>
