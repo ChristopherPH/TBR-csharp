@@ -35,7 +35,7 @@ using System.Runtime.CompilerServices;
  *
  * myfunction(argument arg)
  * {
- *    using (new Profiler("myfunction(argument={0}), arg))
+ *    using (new Profiler("myfunction(argument={0})", arg))
  *    {
  *       //code to profile
  *    }
