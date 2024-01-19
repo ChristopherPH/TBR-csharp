@@ -9,6 +9,9 @@
     <Import_RootNamespace>TheBlackRoom.WinForms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Binding\SynchronizedBindingSource.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\BindableToolStripButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\BindableToolStripMenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedListView.cs" />
