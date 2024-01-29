@@ -452,12 +452,12 @@ namespace TheBlackRoom.System.Binding
                 this.RaiseListChangedEvents = false;
 
             foreach (var item in collection)
-                Add(item);
+                this.Add(item);
 
             if (!RaiseAddItem)
             {
                 this.RaiseListChangedEvents = savedRaiseListChangedEvents;
-                ResetBindings();
+                this.ResetBindings();
             }
         }
         #endregion
