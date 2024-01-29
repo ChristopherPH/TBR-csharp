@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Binding\BindingListEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding\BindingListViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding\IBindingListEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\BindingList\AddRange.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Enum\GetDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerable_T\Concat.cs" />
   </ItemGroup>
