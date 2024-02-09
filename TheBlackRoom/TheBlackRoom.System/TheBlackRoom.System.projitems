@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Binding\BindingListEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Binding\BindingListFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding\BindingListViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding\IBindingListEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\BindingList\AddRange.cs" />
