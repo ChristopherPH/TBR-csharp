@@ -9,7 +9,6 @@
     <Import_RootNamespace>TheBlackRoom.WinForms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxIBindingListHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding\SynchronizedBindingSource.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -28,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\SetIconSpacing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_CopySelectedOrAll.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_AppendRTF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxIBindingListHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawColumnHeaderEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawItemDetailsEventArgs.cs" />
@@ -45,6 +45,5 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\Control\" />
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\ListView\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\" />
   </ItemGroup>
 </Project>
