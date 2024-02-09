@@ -9,6 +9,7 @@
     <Import_RootNamespace>TheBlackRoom.WinForms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxIBindingListHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding\SynchronizedBindingSource.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -44,5 +45,6 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\Control\" />
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\ListView\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\" />
   </ItemGroup>
 </Project>
