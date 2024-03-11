@@ -68,15 +68,7 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
 
             var rowStyle = _tableLayoutPanel.RowStyles[rowIndex];
 
-            _collapsibleRows[rowIndex] = new CollapsibleRow()
-            {
-                Current = rowStyle, //save reference to rowstyle
-                SavedRowStyle = new RowStyle()
-                {
-                    Height = rowStyle.Height,
-                    SizeType = rowStyle.SizeType,
-                },
-            };
+            _collapsibleRows[rowIndex] = new CollapsibleRow(rowStyle);
 
             return rowIndex;
         }
@@ -189,21 +181,19 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
         /// <summary>
         /// Show a single row, and show at a given scale if the row SizeType==Percent
         /// </summary>
-        public void ShowRow(int rowIndex, float sizeTypePercentScale = 1.0f)
+        public void ShowRow(int rowIndex)
         {
             if (!_collapsibleRows.TryGetValue(rowIndex, out var cr))
+                return;
+
+            //no point to show rows already shown
+            if (!cr.IsHidden)
                 return;
 
             _tableLayoutPanel.SuspendLayout();
 
             //Show the row, scaled if a percent row
-            cr.ShowRow(sizeTypePercentScale);
-
-            //If the row shown was a percentage row, then all the row
-            //percents need to be reset
-            if (cr.IsPercent)
-                foreach (var crr in _collapsibleRows.Values.Where(x => x != cr && !x.IsHidden && x.IsPercent))
-                    crr.ShowRow();
+            cr.ShowRow();
 
             _tableLayoutPanel.ResumeLayout();
 
@@ -241,16 +231,10 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
 
             _tableLayoutPanel.SuspendLayout();
 
+            //toggle the row
             if (cr.IsHidden)
             {
-                //Show the row
                 cr.ShowRow();
-
-                //If the row shown was a percentage row, then all the row
-                //percents need to be reset
-                if (cr.IsPercent)
-                    foreach (var crr in _collapsibleRows.Values.Where(x => x != cr && !x.IsHidden && x.IsPercent))
-                        crr.ShowRow();
             }
             else
             {
@@ -262,6 +246,26 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
             OnRowChanged();
         }
 
+        public void SetHeight(int rowIndex, float height)
+        {
+            if (!_collapsibleRows.TryGetValue(rowIndex, out var cr))
+                return;
+
+            if (cr.Height != height)
+            {
+                cr.Height = height;
+                OnRowChanged();
+            }
+        }
+
+        public float GetHeight(int rowIndex)
+        {
+            if (!_collapsibleRows.TryGetValue(rowIndex, out var cr))
+                return 0f;
+
+            return cr.Height;
+        }
+
         public bool IsHidden(int rowIndex)
         {
             if (!_collapsibleRows.TryGetValue(rowIndex, out var cr))
@@ -270,42 +274,84 @@ namespace TheBlackRoom.WinForms.Helpers.TableLayoutPanelHelpers
             return cr.IsHidden;
         }
 
+        public void ResetHeight(int rowIndex)
+        {
+            if (!_collapsibleRows.TryGetValue(rowIndex, out var cr))
+                return;
+
+            cr.ResetHeight();
+            OnRowChanged();
+        }
+
+        public void ResetHeights()
+        {
+            foreach (var cr in _collapsibleRows.Values)
+                cr.ResetHeight();
+
+            OnRowChanged();
+        }
+
         /// <summary>
         /// Helper class to store original row styles
         /// </summary>
         private class CollapsibleRow
         {
-            public RowStyle SavedRowStyle { get; set; }
-            public RowStyle Current { get; set; }
-            public bool IsHidden { get; private set; }
+            public CollapsibleRow(RowStyle rowStyle)
+            {
+                RowSyleReference = rowStyle;
+                OriginalSizeType = rowStyle.SizeType;
+                OriginalHeight = rowStyle.Height;
+
+                //Set current height directly
+                _Height = rowStyle.Height;
+            }
+
+            private RowStyle RowSyleReference = null;
+            private SizeType OriginalSizeType;
+            private float OriginalHeight;
+
+            public float Height
+            {
+                get => _Height;
+                set
+                {
+                    _Height = Math.Max(1, value);
+
+                    if (!IsHidden)
+                        RowSyleReference.Height = _Height;
+                }
+            }
+            private float _Height;
+
+            public bool IsHidden { get; private set; } = false;
+
 
             /// <summary>
             /// Hides a row
             /// </summary>
             public void HideRow()
             {
-                Current.SizeType = SizeType.Absolute;
-                Current.Height = 0;
+                RowSyleReference.SizeType = SizeType.Absolute;
+                RowSyleReference.Height = 0;
                 IsHidden = true;
             }
 
             /// <summary>
-            /// Shows a row, scaled if a percent
+            /// Shows a row
             /// </summary>
-            /// <param name="sizeTypePercentScale"></param>
-            public void ShowRow(float sizeTypePercentScale = 1.0f)
+            public void ShowRow()
             {
-                Current.SizeType = SavedRowStyle.SizeType;
-
-                if (Current.SizeType == SizeType.Percent)
-                    Current.Height = SavedRowStyle.Height * sizeTypePercentScale;
-                else
-                    Current.Height = SavedRowStyle.Height;
-
+                RowSyleReference.SizeType = OriginalSizeType;
+                RowSyleReference.Height = Height;
                 IsHidden = false;
             }
 
-            public bool IsPercent => SavedRowStyle.SizeType == SizeType.Percent;
+            public void ResetHeight()
+            {
+                Height = OriginalHeight;
+            }
+
+            public bool IsPercent => OriginalSizeType == SizeType.Percent;
         }
     }
 }
