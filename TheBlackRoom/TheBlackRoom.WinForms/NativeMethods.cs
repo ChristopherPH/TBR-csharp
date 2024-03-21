@@ -47,6 +47,22 @@ namespace TheBlackRoom.WinForms
         public const int WM_MBUTTONDOWN = 0x0207;
         public const int WM_MBUTTONUP = 0x0208;
         public const int WM_MBUTTONDBLCLK = 0x0209;
+        public const int WM_MOUSEWHEEL = 0x20A;
+
+        public const int WM_HSCROLL = 0x114;
+        public const int WM_VSCROLL = 0x115;
+
+        public const int EM_SCROLL = 0x00B5;
+
+        public const int SB_LINEUP = 0;
+        public const int SB_LINEDOWN = 1;
+        public const int SB_PAGEUP = 2;
+        public const int SB_PAGEDOWN = 3;
+        public const int SB_THUMBPOSITION = 4;
+        public const int SB_THUMBTRACK = 5;
+        public const int SB_TOP = 6;
+        public const int SB_BOTTOM = 7;
+        public const int SB_ENDSCROLL = 8;
 
         /* ListView */
         public const int LVM_FIRST = 0x1000;

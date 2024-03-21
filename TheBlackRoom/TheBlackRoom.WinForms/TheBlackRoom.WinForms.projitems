@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawItemTileEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawSelectedItemDetailsFullRowBackgroundEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawUtility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\RichTextBoxHelpers\RichTextBoxMouseWheelScrollHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TableLayoutPanelHelpers\TableLayoutPanelRowCollapser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
   </ItemGroup>
