@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\SetIconSpacing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_CopySelectedOrAll.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_AppendRTF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxMouseWheelScrollHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxIBindingListHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawColumnHeaderEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawHelper.cs" />
