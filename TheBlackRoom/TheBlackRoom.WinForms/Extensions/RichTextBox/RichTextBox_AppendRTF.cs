@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+using System;
 using System.Windows.Forms;
 
 namespace TheBlackRoom.WinForms.Extensions
@@ -37,10 +38,20 @@ namespace TheBlackRoom.WinForms.Extensions
             richTextBox.Select(richTextBox.TextLength, 0);
 
             //Append rtf text
-            richTextBox.SelectedRtf += Rtf;
+            try
+            {
+                richTextBox.SelectedRtf += Rtf;
+            }
+            catch (ArgumentException)
+            {
+                //File format is not valid.' means invalid RTF, and might be just text
+            }
+            finally
+            {
+                //put selection at the end of the text
+                richTextBox.Select(richTextBox.TextLength, 0);
+            }
 
-            //put selection at the end of the text
-            richTextBox.Select(richTextBox.TextLength, 0);
         }
     }
 }
