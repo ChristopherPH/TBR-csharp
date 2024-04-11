@@ -226,7 +226,8 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
 
         /// <summary>
         /// Check if Background or FocusRectangle can be drawn, or if they are handled
-        /// by OwnerDrawBackgroundDetails event (ListViewOwnerDrawBackgroundDetailsEventArgs)
+        /// instead by the OwnerDrawSelectedItemDetailsFullRowBackground event
+        /// (ListViewOwnerDrawSelectedItemDetailsFullRowBackgroundEventArgs)
         /// </summary>
         public bool CanDrawBackgroundAndFocusRectangle
         {
