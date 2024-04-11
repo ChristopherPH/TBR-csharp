@@ -33,7 +33,7 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         public ListViewOwnerDrawItemDetailsEventArgs(DrawListViewSubItemEventArgs eventArgs,
                     Rectangle textBounds, TextFormatFlags textFlags, Rectangle imageBounds, ImageList imageList)
         {
-            EventArgs = eventArgs;
+            SubItemEventArgs = eventArgs;
             TextBounds = textBounds;
             TextFlags = textFlags;
             ImageBounds = imageBounds;
@@ -50,26 +50,49 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         public Rectangle ImageBounds { get; }
         public ImageList ImageList { get; }
 
-        public DrawListViewSubItemEventArgs EventArgs { get; }
-
-        public int ColumnIndex => EventArgs.ColumnIndex;
+        /// <summary>
+        /// EventArgs for the DrawSubItem event
+        /// </summary>
+        public DrawListViewSubItemEventArgs SubItemEventArgs { get; }
 
         /// <summary>
-        /// Returns the default ForeGround colour of the Item
+        /// Column index of SubItem to be Owner Drawn
+        /// </summary>
+        public int ColumnIndex => SubItemEventArgs.ColumnIndex;
+
+        /// <summary>
+        /// SubItem to be Owner Drawn
+        /// </summary>
+        public ListViewItem.ListViewSubItem SubItem => SubItemEventArgs.SubItem;
+
+        /// <summary>
+        /// Item that owns the SubItem to be Owner Drawn
+        /// </summary>
+        public ListViewItem Item => SubItemEventArgs.Item;
+
+        /// <summary>
+        /// Returns the default ForeGround colour of the Item/SubItem
         /// </summary>
         public Color ForeColor
         {
             get
             {
-                var listView = EventArgs.Item?.ListView;
+                var listView = SubItemEventArgs.Item?.ListView;
 
                 //We can't test the listview, so do what we can
                 if (listView == null)
-                    return EventArgs.SubItem.ForeColor;
+                {
+                    //Return the ForeColour of the Item or SubItem
+                    //depending on configuration
+                    if ((SubItemEventArgs.Item != null) && (SubItemEventArgs.Item.UseItemStyleForSubItems))
+                        return SubItemEventArgs.Item.ForeColor;
+                    else
+                        return SubItemEventArgs.SubItem.ForeColor;
+                }
 
                 //We need to override the selected item if its for a full row or column 0
                 if (CheckState(ListViewItemStates.Selected) &&
-                    (listView.FullRowSelect || (ColumnIndex == 0)))
+                    (listView.FullRowSelect || (SubItemEventArgs.ColumnIndex == 0)))
                 {
                     //Check certain conditions of the item and
                     //listview to return a special colour
@@ -80,7 +103,10 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
                         return SystemColors.WindowText; //TODO: Verify this is the correct SystemColour
                 }
 
-                return EventArgs.SubItem.ForeColor;
+                if ((SubItemEventArgs.Item != null) && (SubItemEventArgs.Item.UseItemStyleForSubItems))
+                    return SubItemEventArgs.Item.ForeColor;
+                else
+                    return SubItemEventArgs.SubItem.ForeColor;
             }
         }
 
@@ -89,21 +115,24 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         /// </summary>
         public void DrawBackground()
         {
-            var listView = EventArgs.Item?.ListView;
+            var listView = SubItemEventArgs.Item?.ListView;
 
             //We can't test the listview, so do what we can
             if (listView == null)
             {
-                EventArgs.DrawBackground();
+                SubItemEventArgs.DrawBackground();
                 return;
             }
 
-            var color = EventArgs.SubItem.BackColor;
+            var color = SubItemEventArgs.SubItem.BackColor;
+
+            if ((SubItemEventArgs.Item != null) && (SubItemEventArgs.Item.UseItemStyleForSubItems))
+                color = SubItemEventArgs.Item.BackColor;
 
             //Check certain conditions of the item and
             //listview to return a special colour
             if (CheckState(ListViewItemStates.Selected) &&
-                (listView.FullRowSelect || (ColumnIndex == 0)))
+                (listView.FullRowSelect || (SubItemEventArgs.ColumnIndex == 0)))
             {
                 if (listView.Focused || !listView.Enabled)
                 {
@@ -132,7 +161,7 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
                 return;
 
             using (var brush = new SolidBrush(backColor))
-                EventArgs.Graphics.FillRectangle(brush, EventArgs.Bounds);
+                SubItemEventArgs.Graphics.FillRectangle(brush, SubItemEventArgs.Bounds);
         }
 
         /// <summary>
@@ -143,11 +172,11 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
             if ((ImageList == null) || (ImageBounds.IsEmpty))
                 return;
 
-            var ix = EventArgs.Item.ImageIndex;
+            var ix = SubItemEventArgs.Item.ImageIndex;
             if ((ix < 0) || (ix >= ImageList.Images.Count))
                 return;
 
-            ImageList.Draw(EventArgs.Graphics, ImageBounds.Location, EventArgs.Item.ImageIndex);
+            ImageList.Draw(SubItemEventArgs.Graphics, ImageBounds.Location, SubItemEventArgs.Item.ImageIndex);
         }
 
         /// <summary>
@@ -163,11 +192,11 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         /// </summary>
         public void DrawText(Color foreColor)
         {
-            if (string.IsNullOrEmpty(EventArgs.Item.Text))
+            if (string.IsNullOrEmpty(SubItemEventArgs.Item.Text))
                 return;
 
-            TextRenderer.DrawText(EventArgs.Graphics, EventArgs.SubItem.Text,
-                EventArgs.SubItem.Font, TextBounds, foreColor, TextFlags);
+            TextRenderer.DrawText(SubItemEventArgs.Graphics, SubItemEventArgs.SubItem.Text,
+                SubItemEventArgs.SubItem.Font, TextBounds, foreColor, TextFlags);
         }
 
         /// <summary>
@@ -190,9 +219,9 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         {
             //EventArgs.State.HasFlag(...Selected) is always true. Use e.Item.Selected as that is correct.
             if (state == ListViewItemStates.Selected)
-                return EventArgs.Item.Selected;
+                return SubItemEventArgs.Item.Selected;
 
-            return EventArgs.ItemState.HasFlag(state);
+            return SubItemEventArgs.ItemState.HasFlag(state);
         }
 
         /// <summary>
@@ -203,7 +232,7 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         {
             get
             {
-                var listView = EventArgs.Item?.ListView;
+                var listView = SubItemEventArgs.Item?.ListView;
                 if (listView == null)
                     return true;
 
