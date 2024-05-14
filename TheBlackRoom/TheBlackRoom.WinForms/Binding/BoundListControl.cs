@@ -267,7 +267,7 @@ namespace TheBlackRoom.WinForms.Binding
         private DrawMode _DrawMode = DrawMode.Normal;
 
         [Category("Appearance")]
-        [DefaultValue(typeof(Color), "Window")]
+        [DefaultValue(typeof(Color), nameof(SystemColors.Window))]
         public override Color BackColor
         {
             get => base.BackColor;
