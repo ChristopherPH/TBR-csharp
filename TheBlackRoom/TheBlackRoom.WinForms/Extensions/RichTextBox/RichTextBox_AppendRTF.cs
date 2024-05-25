@@ -27,17 +27,19 @@ namespace TheBlackRoom.WinForms.Extensions
     public static class RichTextBox_AppendRTF
     {
         /// <summary>
-        /// Appends RTF to the current RTF of a rich text box.
+        /// Appends RTF text to the current RTF of a rich text box, and scrolls
+        /// the rich text box to the end
         /// </summary>
         public static void AppendRtf(this RichTextBox richTextBox, string Rtf)
         {
             if (string.IsNullOrEmpty(Rtf))
                 return;
 
-            //put selection at the end of the text
+            //put selection at the end of the text as that is where
+            //the RTF will be inserted
             richTextBox.Select(richTextBox.TextLength, 0);
 
-            //Append rtf text
+            //Append rtf text (technically, insert rtf text at selection point)
             try
             {
                 richTextBox.SelectedRtf += Rtf;
@@ -48,10 +50,9 @@ namespace TheBlackRoom.WinForms.Extensions
             }
             finally
             {
-                //put selection at the end of the text
+                //put selection at the end of the text, scrolling the rich text box
                 richTextBox.Select(richTextBox.TextLength, 0);
             }
-
         }
     }
 }
