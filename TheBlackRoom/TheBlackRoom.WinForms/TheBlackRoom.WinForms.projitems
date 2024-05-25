@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Control\UIThread.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\FixGroupedSmallIconColumns.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListView\SetIconSpacing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_Scrolling.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_CopySelectedOrAll.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_AppendRTF.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\TextBoxBase\TextBoxBase_Scrolling.cs" />
