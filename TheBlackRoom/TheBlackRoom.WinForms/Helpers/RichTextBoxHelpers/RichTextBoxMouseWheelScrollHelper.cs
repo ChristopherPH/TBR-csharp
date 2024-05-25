@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using TheBlackRoom.WinForms.Extensions;
 
 namespace TheBlackRoom.WinForms.Helpers.RichTextBoxHelpers
 {
@@ -151,14 +152,12 @@ namespace TheBlackRoom.WinForms.Helpers.RichTextBoxHelpers
                 if (e.Delta > 0)
                 {
                     for (int i = 0; i < scrollLines; i++)
-                        NativeMethods.SendMessage(richTextBox.Handle, NativeMethods.WM_VSCROLL,
-                            (IntPtr)NativeMethods.SB_LINEUP, (IntPtr)0);
+                        richTextBox.ScrollLineUp();
                 }
                 else if (e.Delta < 0)
                 {
                     for (int i = 0; i < scrollLines; i++)
-                        NativeMethods.SendMessage(richTextBox.Handle, NativeMethods.WM_VSCROLL,
-                            (IntPtr)NativeMethods.SB_LINEDOWN, (IntPtr)0);
+                        richTextBox.ScrollLineDown();
                 }
             }
         }
