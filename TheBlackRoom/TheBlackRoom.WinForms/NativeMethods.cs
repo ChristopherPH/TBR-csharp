@@ -65,7 +65,7 @@ namespace TheBlackRoom.WinForms
         public struct SCROLLINFO
         {
             public int cbSize;
-            public uint fMask;
+            public ScrollInfoMask fMask;
             public int nMin;
             public int nMax;
             public uint nPage;
@@ -142,12 +142,12 @@ namespace TheBlackRoom.WinForms
         /* Scrolling */
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetScrollInfo([In] IntPtr hWnd, int nBar,
-            ref SCROLLINFO lpsi);
+        public static extern bool GetScrollInfo([In] IntPtr hWnd,
+            [In] SBOrientation nBar, ref SCROLLINFO lpsi);
 
         [DllImport("user32.dll")]
-        public static extern int SetScrollInfo([In] IntPtr hWnd, int nBar,
-            ref SCROLLINFO lpsi, bool redraw);
+        public static extern int SetScrollInfo([In] IntPtr hWnd,
+            [In] SBOrientation nBar, [In] ref SCROLLINFO lpsi, [In] bool redraw);
 
         /* Misc */
         [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
