@@ -62,5 +62,28 @@ namespace TheBlackRoom.WinForms.Extensions
             NativeMethods.SendMessage(richTextBox.Handle,
                 NativeMethods.EM_SETSCROLLPOS, IntPtr.Zero, ref nPoint);
         }
+
+        /// <summary>
+        /// Checks if the rich text box scroll position is at the bottom
+        /// </summary>
+        /// <param name="richTextBox">Rich Text Box to check</param>
+        /// <returns>true if the scroll position is at the bottom, false if not</returns>
+        public static bool GetScrollPositionIsBottom(this RichTextBox richTextBox)
+        {
+            //No text box, the scroll position must be at the bottom
+            if (richTextBox == null)
+                return true;
+
+            //No text, the scroll position must be at the bottom
+            if (richTextBox.Text.Length == 0)
+                return true;
+
+            //Get the pixel position of the last character in the text box
+            var position = richTextBox.GetPositionFromCharIndex(richTextBox.Text.Length - 1);
+
+            //As long as the pixel position of the last character doesn't
+            //exceed the control height, the text box is at the bottom
+            return position.Y < richTextBox.Height;
+        }
     }
 }
