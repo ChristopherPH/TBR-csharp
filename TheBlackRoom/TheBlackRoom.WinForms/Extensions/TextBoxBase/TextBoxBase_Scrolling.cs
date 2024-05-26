@@ -31,7 +31,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="textBox">Text Box to scroll</param>
         public static void ScrollLineUp(this TextBoxBase textBox)
         {
-            if (textBox != null)
+            if ((textBox != null) && textBox.IsHandleCreated)
                 NativeMethods.SendMessage(textBox.Handle, NativeMethods.WM_VSCROLL,
                     NativeMethods.SB_LINEUP, 0);
         }
@@ -42,7 +42,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="textBox">Text Box to scroll</param>
         public static void ScrollLineDown(this TextBoxBase textBox)
         {
-            if (textBox != null)
+            if ((textBox != null) && textBox.IsHandleCreated)
                 NativeMethods.SendMessage(textBox.Handle, NativeMethods.WM_VSCROLL,
                     NativeMethods.SB_LINEDOWN, 0);
         }
@@ -53,7 +53,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="textBox">Text Box to scroll</param>
         public static void ScrollPageUp(this TextBoxBase textBox)
         {
-            if (textBox != null)
+            if ((textBox != null) && textBox.IsHandleCreated)
                 NativeMethods.SendMessage(textBox.Handle, NativeMethods.WM_VSCROLL,
                     NativeMethods.SB_PAGEUP, 0);
         }
@@ -64,7 +64,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="textBox">Text Box to scroll</param>
         public static void ScrollPageDown(this TextBoxBase textBox)
         {
-            if (textBox != null)
+            if ((textBox != null) && textBox.IsHandleCreated)
                 NativeMethods.SendMessage(textBox.Handle, NativeMethods.WM_VSCROLL,
                     NativeMethods.SB_PAGEDOWN, 0);
         }
@@ -75,7 +75,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="textBox">Text Box to scroll</param>
         public static void ScrollToTop(this TextBoxBase textBox)
         {
-            if (textBox != null)
+            if ((textBox != null) && textBox.IsHandleCreated)
                 NativeMethods.SendMessage(textBox.Handle, NativeMethods.WM_VSCROLL,
                     NativeMethods.SB_TOP, 0);
         }
@@ -86,7 +86,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="textBox">Text Box to scroll</param>
         public static void ScrollToBottom(this TextBoxBase textBox)
         {
-            if (textBox != null)
+            if ((textBox != null) && textBox.IsHandleCreated)
                 NativeMethods.SendMessage(textBox.Handle, NativeMethods.WM_VSCROLL,
                     NativeMethods.SB_BOTTOM, 0);
         }

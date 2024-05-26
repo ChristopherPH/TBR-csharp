@@ -32,7 +32,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="refresh">Flag indicating the control should be refreshed</param>
         public static void EnableRedraw(this Control control, bool refresh = true)
         {
-            if (control == null)
+            if ((control == null) || !control.IsHandleCreated)
                 return;
 
             NativeMethods.SendMessage(control.Handle, NativeMethods.WM_SETREDRAW,
@@ -48,7 +48,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="control">Control to disable redraw</param>
         public static void DisableRedraw(this Control control)
         {
-            if (control == null)
+            if ((control == null) || !control.IsHandleCreated)
                 return;
 
             NativeMethods.SendMessage(control.Handle, NativeMethods.WM_SETREDRAW,

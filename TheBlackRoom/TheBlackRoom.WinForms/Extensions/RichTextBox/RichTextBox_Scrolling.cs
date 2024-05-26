@@ -33,7 +33,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="richTextBox">Rich Text Box to get scroll position from</param>
         public static Point GetScrollPosition(this RichTextBox richTextBox)
         {
-            if (richTextBox == null)
+            if ((richTextBox == null) || !richTextBox.IsHandleCreated)
                 return Point.Empty;
 
             NativeMethods.POINT nPoint = new NativeMethods.POINT();
@@ -50,7 +50,7 @@ namespace TheBlackRoom.WinForms.Extensions
         /// <param name="richTextBox">Rich Text Box to scroll</param>
         public static void SetScrollPosition(this RichTextBox richTextBox, Point scrollPosition)
         {
-            if (richTextBox == null)
+            if ((richTextBox == null) || !richTextBox.IsHandleCreated)
                 return;
 
             NativeMethods.POINT nPoint = new NativeMethods.POINT()
