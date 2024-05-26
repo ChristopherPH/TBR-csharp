@@ -82,7 +82,16 @@ namespace TheBlackRoom.WinForms.Extensions
                     //with getting modified when it has no handle.
                 }
 
-                ctrl.Invoke(action);
+                try
+                {
+                    ctrl.Invoke(action);
+                }
+                catch (ObjectDisposedException)
+                {
+                    //Need to catch ObjectDisposedException as the object could get disposed
+                    //while waiting to invoke the control
+                }
+
                 return true;
             }
 
