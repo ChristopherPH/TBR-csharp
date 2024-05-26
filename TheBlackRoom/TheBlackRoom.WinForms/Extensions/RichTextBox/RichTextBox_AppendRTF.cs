@@ -39,17 +39,10 @@ namespace TheBlackRoom.WinForms.Extensions
             if (string.IsNullOrEmpty(Rtf))
                 return;
 
-            //Variables used to save selections and positions when not scrolling
-            int selectionStart = 0, selectionLength = 0;
-            Point scrollPosition = Point.Empty;
-
             //Save selection and scroll positions
-            if (!scrollToEnd)
-            {
-                selectionStart = richTextBox.SelectionStart;
-                selectionLength = richTextBox.SelectionLength;
-                scrollPosition = richTextBox.GetScrollPosition();
-            }
+            var selectionStart = richTextBox.SelectionStart;
+            var selectionLength = richTextBox.SelectionLength;
+            var scrollPosition = richTextBox.GetScrollPosition();
 
             //Disable drawing, so that changing the selections doesn't adjust
             //the current position
@@ -60,28 +53,28 @@ namespace TheBlackRoom.WinForms.Extensions
             richTextBox.Select(richTextBox.TextLength, 0);
 
             //Append rtf text (technically, insert rtf text at selection point)
+            //This in theory is faster than replacing the text of the entire control
             try
             {
-                richTextBox.SelectedRtf += Rtf;
+                richTextBox.SelectedRtf = Rtf;
             }
             catch (ArgumentException)
             {
                 //File format is not valid.' means invalid RTF, and might be just text
             }
-            finally
+
+            //Restore selection
+            richTextBox.Select(selectionStart, selectionLength);
+
+            if (scrollToEnd)
             {
-                if (scrollToEnd)
-                {
-                    //put selection at the end of the text, scrolling the rich text box
-                    richTextBox.Select(richTextBox.TextLength, 0);
-                    richTextBox.ScrollToBottom();
-                }
-                else
-                {
-                    //restore selection and scroll position
-                    richTextBox.Select(selectionStart, selectionLength);
-                    richTextBox.SetScrollPosition(scrollPosition);
-                }
+                //put selection at the end of the text
+                richTextBox.ScrollToBottom();
+            }
+            else
+            {
+                //restore selection and scroll position
+                richTextBox.SetScrollPosition(scrollPosition);
             }
 
             //Restore drawing with the current position
