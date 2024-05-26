@@ -21,6 +21,7 @@
  */
 using System;
 using System.Windows.Forms;
+using TheBlackRoom.WinForms.Extensions;
 
 namespace TheBlackRoom.WinForms.Controls
 {
@@ -39,9 +40,12 @@ namespace TheBlackRoom.WinForms.Controls
             var savedRTF = this.Rtf;
             var savedSelectionStart = this.SelectionStart;
             var savedSelectionLength = this.SelectionLength;
+            var scrollPosition = this.GetScrollPosition();
 
             //HACK: save the zoom factor as setting the RTF sets it back to 1
             var tmpZoomFactor = this.ZoomFactor;
+
+            this.DisableRedraw();
 
             //this line here causes the formatting loss
             base.OnFontChanged(e);
@@ -53,11 +57,13 @@ namespace TheBlackRoom.WinForms.Controls
             this.ZoomFactor = tmpZoomFactor;
 
             //Restore selection
-            this.SelectionStart = savedSelectionStart;
-            this.SelectionLength = savedSelectionLength;
+            this.Select(savedSelectionStart, savedSelectionLength);
 
             //Restore scroll position
-            this.ScrollToCaret();
+            this.SetScrollPosition(scrollPosition);
+
+            //Restore drawing with the current position
+            this.EnableRedraw(true);
         }
 
         public new float ZoomFactor
