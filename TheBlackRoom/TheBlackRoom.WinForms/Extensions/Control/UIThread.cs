@@ -75,7 +75,8 @@ namespace TheBlackRoom.WinForms.Extensions
                             return false;
                     }
 
-                    //No handle, there isn't much we can really do here. We could fail,
+                    //No handle, there isn't much we can really do here. This does happens when
+                    //a form exists, but the child controls are not yet visible. We could fail,
                     //but it is probably fine to run the action as it will run on the parent
                     //controls creation thread. We just hope that it ends up on the UI thread
                     //so the control is created correctly, and that the control plays nicely
@@ -90,6 +91,7 @@ namespace TheBlackRoom.WinForms.Extensions
                 {
                     //Need to catch ObjectDisposedException as the object could get disposed
                     //while waiting to invoke the control
+                    global::System.Diagnostics.Debug.Print($"{ctrl?.GetType().Name}:{ctrl?.Name} disposed during invoke");
                 }
 
                 return true;
