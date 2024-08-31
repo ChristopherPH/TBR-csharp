@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBlackRoom", "TheBlackRoom\TheBlackRoom.csproj", "{B5D7D8E0-DA9C-4FE1-96B9-EA08DEAD13D6}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TheBlackRoom.System", "TheBlackRoom.System\TheBlackRoom.System.shproj", "{DAF1563E-0789-4010-8248-56DA1C93D592}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TheBlackRoom.Utility", "TheBlackRoom.Utility\TheBlackRoom.Utility.shproj", "{874E474C-D6DC-42BE-833D-C195BA02F512}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TheBlackRoom.WinForms", "TheBlackRoom.WinForms\TheBlackRoom.WinForms.shproj", "{A934EA9A-87AD-4935-9859-8938D033778B}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TheBlackRoom.Gfx", "TheBlackRoom.Gfx\TheBlackRoom.Gfx.shproj", "{3B6CAA76-547F-49BF-AD13-BBD9F74A7EBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5D7D8E0-DA9C-4FE1-96B9-EA08DEAD13D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D7D8E0-DA9C-4FE1-96B9-EA08DEAD13D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D7D8E0-DA9C-4FE1-96B9-EA08DEAD13D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D7D8E0-DA9C-4FE1-96B9-EA08DEAD13D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A912A89C-5220-41D5-A081-B0B56577A4DE}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		TheBlackRoom.Gfx\TheBlackRoom.Gfx.projitems*{3b6caa76-547f-49bf-ad13-bbd9f74a7ebd}*SharedItemsImports = 13
+		TheBlackRoom.Utility\TheBlackRoom.Utility.projitems*{874e474c-d6dc-42be-833d-c195ba02f512}*SharedItemsImports = 13
+		TheBlackRoom.WinForms\TheBlackRoom.WinForms.projitems*{a934ea9a-87ad-4935-9859-8938d033778b}*SharedItemsImports = 13
+		TheBlackRoom.Gfx\TheBlackRoom.Gfx.projitems*{b5d7d8e0-da9c-4fe1-96b9-ea08dead13d6}*SharedItemsImports = 5
+		TheBlackRoom.System\TheBlackRoom.System.projitems*{b5d7d8e0-da9c-4fe1-96b9-ea08dead13d6}*SharedItemsImports = 5
+		TheBlackRoom.Utility\TheBlackRoom.Utility.projitems*{b5d7d8e0-da9c-4fe1-96b9-ea08dead13d6}*SharedItemsImports = 5
+		TheBlackRoom.WinForms\TheBlackRoom.WinForms.projitems*{b5d7d8e0-da9c-4fe1-96b9-ea08dead13d6}*SharedItemsImports = 5
+		TheBlackRoom.System\TheBlackRoom.System.projitems*{daf1563e-0789-4010-8248-56da1c93d592}*SharedItemsImports = 13
+	EndGlobalSection
+EndGlobal

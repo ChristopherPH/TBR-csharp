@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472</TargetFrameworks>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <Import Project="..\TheBlackRoom.Gfx\TheBlackRoom.Gfx.projitems" Label="Shared" />
+
+  <Import Project="..\TheBlackRoom.System\TheBlackRoom.System.projitems" Label="Shared" />
+
+  <Import Project="..\TheBlackRoom.Utility\TheBlackRoom.Utility.projitems" Label="Shared" />
+
+  <Import Project="..\TheBlackRoom.WinForms\TheBlackRoom.WinForms.projitems" Label="Shared" />
+
+</Project>
