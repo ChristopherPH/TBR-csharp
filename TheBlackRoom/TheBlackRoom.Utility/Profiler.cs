@@ -41,7 +41,7 @@ using System.Runtime.CompilerServices;
  *    }
  * }
  *
- * using (new Profiler("ProfileCallingFunctionName))
+ * using (new Profiler("ProfileCallingFunctionName"))
  *    FunctionName()
  */
 
