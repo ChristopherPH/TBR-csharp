@@ -56,5 +56,21 @@ namespace TheBlackRoom.System.Extensions
 
             return rc;
         }
+
+        /// <summary>
+        /// Returns the [Description("...")] attributes of the enum entries as a string separated by a custom separator
+        /// </summary>
+        public static string GetDescriptions(this Enum flags, string sep = "|")
+        {
+            var rc = new List<string>();
+
+            foreach (Enum flag in Enum.GetValues(flags.GetType()))
+            {
+                if (flags.HasFlag(flag))
+                    rc.Add(flag.GetDescription());
+            }
+
+            return string.Join(sep, rc);
+        }
     }
 }

@@ -14,13 +14,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Binding\BindingListViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding\IBindingListEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\BindingList\AddRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Enum\OrderedValues.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Enum\GetDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerable_T\Concat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\EnumDescription.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\EnumOrder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Extensions\Enum\" />
   </ItemGroup>
 </Project>
