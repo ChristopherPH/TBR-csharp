@@ -13,6 +13,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Graphics\Graphics_RoundedRect.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\RectangleF\RectangleF_Slice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\RectangleF\RectangleF_Scale.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Rectangle\Rectangle_Scale.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Rectangle\Rectangle_Slice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringFormat\StringFormat_SetAlignment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\RoundedRectangles.cs" />
   </ItemGroup>
   <ItemGroup>
