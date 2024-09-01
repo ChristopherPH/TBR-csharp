@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Enum\OrderedValues.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Enum\GetDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerable_T\Concat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\String\String_ToTitleCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\EnumDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\EnumOrder.cs" />
   </ItemGroup>
