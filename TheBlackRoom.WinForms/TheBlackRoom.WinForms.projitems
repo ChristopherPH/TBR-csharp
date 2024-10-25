@@ -43,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\RichTextBoxHelpers\RichTextBoxMouseWheelScrollHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TableLayoutPanelHelpers\TableLayoutPanelRowCollapser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\RTFEncoding.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\README.txt" />
