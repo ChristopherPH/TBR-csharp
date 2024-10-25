@@ -294,5 +294,10 @@ namespace TheBlackRoom.WinForms.Utility
             //format RTF
             return $"{Header}{FontTable}{ColourTable}{MessagePrefix}{Message}{Footer}";
         }
+
+        /// <summary>
+        /// RTF control codes for generating a newline
+        /// </summary>
+        public static string RtfNewline => @"{\rtf1\ansi \line}";
     }
 }
