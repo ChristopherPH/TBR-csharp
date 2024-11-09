@@ -20,8 +20,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\String\String_ToTitleCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\EnumDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\EnumOrder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IListHelpers\ListBoxWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\IListHelpers\" />
   </ItemGroup>
 </Project>
