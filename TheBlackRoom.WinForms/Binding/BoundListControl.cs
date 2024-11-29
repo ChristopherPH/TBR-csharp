@@ -35,7 +35,7 @@ namespace TheBlackRoom.WinForms.Binding
     ///
     /// Reason: In theory, this control should raise less DrawItem
     ///         events compared to a standard ListBox, when:
-    ///         (DrawMode == OwnerDrawFixed) && (DataSource != null)
+    ///         (DrawMode == OwnerDrawFixed) and (DataSource != null)
     ///
     /// Features:
     /// - DoubleBuffered

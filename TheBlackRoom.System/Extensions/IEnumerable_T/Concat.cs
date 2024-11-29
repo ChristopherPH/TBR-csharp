@@ -29,10 +29,10 @@ namespace TheBlackRoom.System.Extensions
         /// <summary>
         /// Concatinates an element to a sequence
         /// </summary>
-        /// <typeparam name="T">The type of the elements of the input sequences.</typeparam>
+        /// <typeparam name="TSource">The type of the elements of the input sequences.</typeparam>
         /// <param name="first">The first sequence to concatenate.</param>
         /// <param name="second">The element to concatenate to the first sequence.</param>
-        /// <returns>An IEnumerable<T> that contains the concatenated elements of the input sequences and element</returns>
+        /// <returns>An IEnumerable&lt;T&gt; that contains the concatenated elements of the input sequences and element</returns>
         public static IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, TSource second)
         {
             //Cast, to ensure the correct Concat is called
@@ -42,10 +42,10 @@ namespace TheBlackRoom.System.Extensions
         /// <summary>
         /// Concatinates an element or elements to a sequence
         /// </summary>
-        /// <typeparam name="T">The type of the elements of the input sequences.</typeparam>
+        /// <typeparam name="TSource">The type of the elements of the input sequences.</typeparam>
         /// <param name="first">The first sequence to concatenate.</param>
         /// <param name="second">The element or elements to concatenate to the first sequence.</param>
-        /// <returns>An IEnumerable<T> that contains the concatenated elements of the input sequences and element or elements</returns>
+        /// <returns>An IEnumerable&lt;T&gt; that contains the concatenated elements of the input sequences and element or elements</returns>
         public static IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, params TSource[] second)
         {
             //Cast, to ensure the correct Concat is called
