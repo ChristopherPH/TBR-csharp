@@ -12,10 +12,10 @@
 
   <Import Project="..\TheBlackRoom.Gfx\TheBlackRoom.Gfx.projitems" Label="Shared" />
 
-  <Import Project="..\TheBlackRoom.System\TheBlackRoom.System.projitems" Label="Shared" />
-
   <Import Project="..\TheBlackRoom.Utility\TheBlackRoom.Utility.projitems" Label="Shared" />
 
   <Import Project="..\TheBlackRoom.WinForms\TheBlackRoom.WinForms.projitems" Label="Shared" />
+
+  <Import Project="..\TheBlackRoom.Core\TheBlackRoom.Core.projitems" Label="Shared" />
 
 </Project>

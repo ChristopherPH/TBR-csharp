@@ -16,7 +16,7 @@ A collection of utility functions, extension methods, helpers and controls for t
   - **Binding**:    Classes and controls that center around data binding
 
 
-## TheBlackRoom.System
+## TheBlackRoom.Core
 
 Library for types and classes contained the following namespaces:
 - `System`
