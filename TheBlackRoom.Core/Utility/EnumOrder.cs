@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 
-namespace TheBlackRoom.System.Utility
+namespace TheBlackRoom.Core.Utility
 {
     public static class EnumOrder
     {

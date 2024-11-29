@@ -6,7 +6,7 @@
     <SharedGUID>daf1563e-0789-4010-8248-56da1c93d592</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>TheBlackRoom.System</Import_RootNamespace>
+    <Import_RootNamespace>TheBlackRoom.Core</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Binding\BindingListEx.cs" />

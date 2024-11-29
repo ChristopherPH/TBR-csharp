@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace TheBlackRoom.System.Binding
+namespace TheBlackRoom.Core.Binding
 {
     /// <summary>
     /// Provides a BindingList that:

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace TheBlackRoom.System.Helpers.IListHelpers
+namespace TheBlackRoom.Core.Helpers.IListHelpers
 {
     /// <summary>
     /// Wrapper around an `IList` to provide basic ListBox functionality,

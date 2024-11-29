@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace TheBlackRoom.System.Extensions
+namespace TheBlackRoom.Core.Extensions
 {
     public static class Enum_GetDescription
     {

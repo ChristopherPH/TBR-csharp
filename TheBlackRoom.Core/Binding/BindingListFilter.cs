@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 
-namespace TheBlackRoom.System.Binding
+namespace TheBlackRoom.Core.Binding
 {
     /// <summary>
     /// Wrapper around a BindingList, that provides a filtered view

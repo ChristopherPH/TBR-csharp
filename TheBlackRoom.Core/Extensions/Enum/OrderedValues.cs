@@ -20,9 +20,9 @@
  * SOFTWARE.
  */
 using System;
-using TheBlackRoom.System.Utility;
+using TheBlackRoom.Core.Utility;
 
-namespace TheBlackRoom.System.Extensions
+namespace TheBlackRoom.Core.Extensions
 {
     public static class EnumExtensions
     {

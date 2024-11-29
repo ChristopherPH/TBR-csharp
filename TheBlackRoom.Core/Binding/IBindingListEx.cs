@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 
-namespace TheBlackRoom.System.Binding
+namespace TheBlackRoom.Core.Binding
 {
     /// <summary>
     /// Provides the features required to support both complex and simple

@@ -21,7 +21,7 @@
  */
 using System.Globalization;
 
-namespace TheBlackRoom.System.Extensions
+namespace TheBlackRoom.Core.Extensions
 {
     public static class String_ToTitleCase
     {

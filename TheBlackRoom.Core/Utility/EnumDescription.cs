@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 
-namespace TheBlackRoom.System.Utility
+namespace TheBlackRoom.Core.Utility
 {
     /// <summary>
     /// Utility class to parse enum descriptions back into enums

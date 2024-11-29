@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TheBlackRoom.System.Extensions
+namespace TheBlackRoom.Core.Extensions
 {
     public static class IEnumerable_T_Concat
     {
