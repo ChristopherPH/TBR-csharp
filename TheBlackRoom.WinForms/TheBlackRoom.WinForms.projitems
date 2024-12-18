@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\BindableToolStripButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\BindableToolStripMenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding\BoundListControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedListBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedRichTextBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ExtendedToolStrip.cs" />
