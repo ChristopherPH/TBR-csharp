@@ -31,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_Scrolling.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_CopySelectedOrAll.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RichTextBox\RichTextBox_AppendRTF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)extensions\richtextbox\RichTextBox_Fonts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\TextBoxBase\TextBoxBase_Scrolling.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxMouseWheelScrollHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxIBindingListHelper.cs" />
