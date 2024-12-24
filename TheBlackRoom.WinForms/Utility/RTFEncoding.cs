@@ -147,7 +147,7 @@ namespace TheBlackRoom.WinForms.Utility
             Message = Regex.Replace(Message, @"\[/size\]", x =>
             {
                 if (DefaultFontSizeInPoints > 0)
-                    return $@"\fs{DefaultFontSizeInPoints * 2} ";
+                    return $@"\fs{(DefaultFontSizeInPoints * 2):0} ";
 
                 return string.Empty;
             });
@@ -284,7 +284,7 @@ namespace TheBlackRoom.WinForms.Utility
 
             //font size
             if (DefaultFontSizeInPoints > 0)
-                MessagePrefix += $@"\fs{(int)(DefaultFontSizeInPoints * 2)}";
+                MessagePrefix += $@"\fs{(DefaultFontSizeInPoints * 2):0}";
 
             if (!string.IsNullOrEmpty(MessagePrefix))
                 MessagePrefix += " ";
