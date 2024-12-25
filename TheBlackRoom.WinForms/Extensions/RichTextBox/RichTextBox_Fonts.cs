@@ -47,6 +47,10 @@ namespace TheBlackRoom.WinForms.Extensions
             if (richTextBox.TextLength == 0)
                 return;
 
+            //Save the existing ZoomFactor value, as setting the .Rtf property
+            //resets the ZoomFactor back to 1.0f.
+            var tmpZoomFactor = richTextBox.ZoomFactor;
+
             //Replace any instances of "\fsSIZE-IN-HALF-POINTS" that is not
             //preceeded by another "\" with the new size. Convert the new
             //size to half points as required by the RTF spec, rounding up
@@ -54,6 +58,12 @@ namespace TheBlackRoom.WinForms.Extensions
             richTextBox.Rtf = Regex.Replace(richTextBox.Rtf,
                     @"(?<!\\)\\fs\d+",
                     m => $@"\fs{(sizeInPoints * 2):0}");
+
+            //Restore the pre-existing ZoomFactor value after setting the .Rtf
+            //property. Sometimes the underlying ZoomFactor changes but the
+            //property doesn't, so set the ZoomFactor twice to fix it.
+            richTextBox.ZoomFactor = 1.0f;
+            richTextBox.ZoomFactor = tmpZoomFactor;
         }
     }
 }
