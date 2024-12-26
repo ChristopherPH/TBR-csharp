@@ -93,6 +93,12 @@ namespace TheBlackRoom.WinForms.Helpers.ListBoxHelpers
                 int scrollLines;
                 int visibleLines = listBox.Height / listBox.ItemHeight;
 
+                //Check if the listbox can actually scroll. If the listbox can't
+                //scroll, and has focus, doing a mouse wheel scroll will cause
+                //the first item in the listbox to be re-drawn and flicker.
+                if (listBox.Items.Count <= visibleLines)
+                    return;
+
                 switch (scrollAmount)
                 {
                     default:
@@ -138,8 +144,10 @@ namespace TheBlackRoom.WinForms.Helpers.ListBoxHelpers
                 }
                 else if (e.Delta < 0)
                 {
-                    if (listBox.TopIndex < listBox.Items.Count - 1)
-                        listBox.TopIndex += Math.Min(scrollLines, listBox.Items.Count - 1 - listBox.TopIndex);
+                    var lastIndex = listBox.Items.Count - visibleLines;
+
+                    if (listBox.TopIndex < lastIndex)
+                        listBox.TopIndex += Math.Min(scrollLines, lastIndex - listBox.TopIndex);
                 }
             }
         }
