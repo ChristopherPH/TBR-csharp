@@ -93,7 +93,7 @@ namespace TheBlackRoom.WinForms.Controls
 
                         /* Don't draw the item if its not in the clip rectangle */
                         if (!e.ClipRectangle.IntersectsWith(itemRect))
-                                continue;
+                            continue;
 
                         /* Determine if the item is selected or not */
                         bool selected;
@@ -115,11 +115,32 @@ namespace TheBlackRoom.WinForms.Controls
                                 break;
                         }
 
+                        /* Set item states from various control properties:
+                         * Valid ListBox states are Selected, Disabled, Focused,
+                         * NoAccelerator, NoFocusRect */
+                        DrawItemState state = DrawItemState.None;
+
+                        if (selected)
+                        {
+                            state |= DrawItemState.Selected;
+
+                            if (Focused)
+                                state |= DrawItemState.Focus;
+                        }
+
+                        if (!Enabled)
+                            state |= DrawItemState.Disabled;
+
+                        if (!ShowKeyboardCues)
+                            state |= DrawItemState.NoAccelerator;
+
+                        if (!ShowFocusCues)
+                            state |= DrawItemState.NoFocusRect;
+
                         /* Generate draw args, call OnDrawItem() and allow
                          * OwnerDraw to take over drawing */
                         OnDrawItem(new DrawItemEventArgs(e.Graphics, Font, itemRect,
-                            ix, selected ? DrawItemState.Selected : DrawItemState.Default,
-                            ForeColor, BackColor));
+                            ix, state, ForeColor, BackColor));
                     }
                     break;
             }
