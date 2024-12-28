@@ -28,7 +28,8 @@ namespace TheBlackRoom.WinForms.Extensions
     public static class RichTextBox_Fonts
     {
         /// <summary>
-        /// Sets the Font Size of any existing RTF Text inside a Rich Text Box
+        /// Sets the font size of any existing RTF text inside a RichTextBox,
+        /// or sets the default font size if there is no existing RTF text.
         /// </summary>
         /// <param name="richTextBox">>Rich Text Box to set font size of</param>
         /// <param name="sizeInPoints">Font size to set, in points</param>
@@ -43,25 +44,28 @@ namespace TheBlackRoom.WinForms.Extensions
             if (sizeInPoints <= 0)
                 throw new ArgumentException("Invalid Font Size", nameof(sizeInPoints));
 
-            //No existing text, nothing to do
-            if (richTextBox.TextLength == 0)
-                return;
+            //Ensure size is valid when converted to twips and back
+            //as RichTextBox internally uses twips for font height
+            var points = Math.Round(sizeInPoints * 20) / 20;
+
+            //RichTextBox requires halfpoints to have no decimal,
+            //so cast to int to drop the decimal after soubling.
+            //This allows sizeInPoints to be a 1/2 size (.5).
+            var halfPoints = (int)(points * 2);
 
             //Save the existing ZoomFactor value, as setting the .Rtf property
             //resets the ZoomFactor back to 1.0f.
             var tmpZoomFactor = richTextBox.ZoomFactor;
 
             //Replace any instances of "\fsSIZE-IN-HALF-POINTS" that is not
-            //preceeded by another "\" with the new size. Convert the new
-            //size to half points as required by the RTF spec, rounding up
-            //and formatting to no decimal places.
+            //preceeded by another "\" with the new size.
             richTextBox.Rtf = Regex.Replace(richTextBox.Rtf,
                     @"(?<!\\)\\fs\d+",
-                    m => $@"\fs{(sizeInPoints * 2):0}");
+                    m => $@"\fs{halfPoints}");
 
-            //Restore the pre-existing ZoomFactor value after setting the .Rtf
-            //property. Sometimes the underlying ZoomFactor changes but the
-            //property doesn't, so set the ZoomFactor twice to fix it.
+            //Changing the RTF resets the zoom factor back to 1
+            //but does not update the backing variable, so set
+            //it twice to ensure the zoom factor is correct.
             richTextBox.ZoomFactor = 1.0f;
             richTextBox.ZoomFactor = tmpZoomFactor;
         }
