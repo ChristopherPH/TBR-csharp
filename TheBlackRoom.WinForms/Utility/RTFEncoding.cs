@@ -116,6 +116,15 @@ namespace TheBlackRoom.WinForms.Utility
             if (Message == null)
                 return null;
 
+            //Ensure size is valid when converted to twips and back
+            //as RichTextBox internally uses twips for font height
+            var points = Math.Round(DefaultFontSizeInPoints * 20) / 20;
+
+            //RichTextBox requires halfpoints to have no decimal,
+            //so cast to int to drop the decimal after soubling.
+            //This allows sizeInPoints to be a 1/2 size (.5).
+            var halfPoints = (int)(points * 2);
+
             //escape rtf control characters
             Message = Message.Replace(@"\", @"\\");
             Message = Message.Replace("{", @"\{");
@@ -147,7 +156,7 @@ namespace TheBlackRoom.WinForms.Utility
             Message = Regex.Replace(Message, @"\[/size\]", x =>
             {
                 if (DefaultFontSizeInPoints > 0)
-                    return $@"\fs{(DefaultFontSizeInPoints * 2):0} ";
+                    return $@"\fs{halfPoints} ";
 
                 return string.Empty;
             });
@@ -284,7 +293,7 @@ namespace TheBlackRoom.WinForms.Utility
 
             //font size
             if (DefaultFontSizeInPoints > 0)
-                MessagePrefix += $@"\fs{(DefaultFontSizeInPoints * 2):0}";
+                MessagePrefix += $@"\fs{halfPoints}";
 
             if (!string.IsNullOrEmpty(MessagePrefix))
                 MessagePrefix += " ";
