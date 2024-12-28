@@ -35,6 +35,16 @@ namespace TheBlackRoom.WinForms.Controls
     {
         protected override void OnFontChanged(EventArgs e)
         {
+            /* If there is no text, then use Clear() to remove the internal
+             * RTF font table. This will force the next RTF text that is
+             * appended to use the Font.SizeInPoints property. */
+            if (this.TextLength == 0)
+            {
+                this.Clear();
+                base.OnFontChanged(e);
+                return;
+            }
+
             //HACK: save the RTF as changing the font (or having the parent form's font change)
             //      causes the RTF to lose colour and formatting
             var savedRTF = this.Rtf;
@@ -47,14 +57,17 @@ namespace TheBlackRoom.WinForms.Controls
 
             this.DisableRedraw();
 
-            //this line here causes the formatting loss
+            //this line here causes the RTF formatting loss
             base.OnFontChanged(e);
 
             //reset to the saved RTF
             this.Rtf = savedRTF;
 
             //Changing the RTF resets the zoom factor back to 1
-            this.ZoomFactor = tmpZoomFactor;
+            //but does not update the backing variable, so set
+            //it twice to ensure the zoom factor is correct.
+            base.ZoomFactor = 1.0f;
+            base.ZoomFactor = tmpZoomFactor;
 
             //Restore selection
             this.Select(savedSelectionStart, savedSelectionLength);
@@ -68,12 +81,12 @@ namespace TheBlackRoom.WinForms.Controls
 
         public new float ZoomFactor
         {
-            get { return base.ZoomFactor; }
+            get => base.ZoomFactor;
             set
             {
                 //HACK: in order to properly set the zoom factor, set it twice.
-                //      sometimes the underlying zoomfactor changes but the property
-                //      doesn't.
+                //      sometimes the underlying zoom factor changes but the property
+                //      doesn't, for example, calling Clear().
                 base.ZoomFactor = 1.0f;
                 base.ZoomFactor = value;
             }
@@ -87,7 +100,11 @@ namespace TheBlackRoom.WinForms.Controls
 
             base.Clear();
 
-            ZoomFactor = tmpZoomFactor;
+            //Clearing the control resets the zoom factor back to 1
+            //but does not update the backing variable, so set
+            //it twice to ensure the zoom factor is correct.
+            base.ZoomFactor = 1.0f;
+            base.ZoomFactor = tmpZoomFactor;
         }
     }
 }
