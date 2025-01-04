@@ -42,6 +42,10 @@ namespace TheBlackRoom.WinForms
         public static extern IntPtr SendMessage([In] IntPtr hWnd, [In] uint wMsg,
             [In] IntPtr wParam, ref POINT lParam);
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage([In] IntPtr hWnd, [In] uint wMsg,
+            [In] int wParam, ref CHARFORMAT2W lParam);
+
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool GetWindowRect([In] IntPtr hWnd, [Out] out RECT lpRect);
 
@@ -138,6 +142,62 @@ namespace TheBlackRoom.WinForms
         public const int EM_GETSCROLLPOS = NativeMethods.WM_USER + 221;
         public const int EM_SETSCROLLPOS = NativeMethods.WM_USER + 222;
 
+        public const int EM_GETCHARFORMAT = NativeMethods.WM_USER + 58;
+        public const int EM_SETCHARFORMAT = NativeMethods.WM_USER + 68;
+
+        public const int SCF_SELECTION = 0x0001;
+        public const int SCF_ALL = 0x0004;
+
+        [Flags]
+        public enum CFM_MASK : uint
+        {
+            CFM_BOLD = 0x00000001,
+            CFM_ITALIC = 0x00000002,
+            CFM_UNDERLINE = 0x00000004,
+            CFM_STRIKEOUT = 0x00000008,
+
+            CFM_CHARSET = 0x08000000,
+
+            CFM_OFFSET = 0x10000000,
+            CFM_FACE = 0x20000000,
+            CFM_COLOR = 0x40000000,
+            CFM_SIZE = 0x80000000,
+        }
+
+        [Flags]
+        public enum CFE_EFFECTS
+        {
+            CFE_BOLD = 0x0001,
+            CFE_ITALIC = 0x0002,
+            CFE_STRIKEOUT = 0x0004,
+            CFE_UNDERLINE = 0x0008,
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct CHARFORMAT2W
+        {
+            public uint cbSize;
+            public CFM_MASK dwMask;
+            public CFE_EFFECTS dwEffects;
+            public int yHeight;
+            public int yOffset;
+            public int crTextColor;
+            public byte bCharSet;
+            public byte bPitchAndFamily;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+            public char[] szFaceName;
+            public ushort wWeight;
+            public short sSpacing;
+            public int crBackColor;
+            public int lcid;
+            public uint dwCookie;
+            public short sStyle;
+            public ushort wKerning;
+            public byte bUnderlineType;
+            public byte bAnimation;
+            public byte bRevAuthor;
+            public byte bUnderlineColor;
+        }
 
         /* Scrolling */
         [DllImport("user32.dll")]

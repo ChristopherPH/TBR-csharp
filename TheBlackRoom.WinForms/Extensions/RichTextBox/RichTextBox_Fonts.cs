@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 using System;
-using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace TheBlackRoom.WinForms.Extensions
@@ -28,13 +28,16 @@ namespace TheBlackRoom.WinForms.Extensions
     public static class RichTextBox_Fonts
     {
         /// <summary>
-        /// Sets the font size of any existing RTF text inside a RichTextBox,
-        /// or sets the default font size if there is no existing RTF text.
+        /// Sets the font size of any RTF text inside a RichTextBox, without
+        /// modifying other font parameters.
         /// </summary>
-        /// <param name="richTextBox">>Rich Text Box to set font size of</param>
+        /// <param name="richTextBox">>Rich Text Box to set font parameters of</param>
         /// <param name="sizeInPoints">Font size to set, in points</param>
-        public static void SetRTFFontSize(this RichTextBox richTextBox, float sizeInPoints)
+        /// <param name="selectionOnly">Flag indicating only selected text should be set</param>
+        public static void SetRtfFontSize(this RichTextBox richTextBox, float sizeInPoints,
+            bool selectionOnly)
         {
+            //Validate parameters
             if (richTextBox is null)
                 throw new ArgumentNullException(nameof(richTextBox));
 
@@ -44,30 +47,18 @@ namespace TheBlackRoom.WinForms.Extensions
             if (sizeInPoints <= 0)
                 throw new ArgumentException("Invalid Font Size", nameof(sizeInPoints));
 
-            //Ensure size is valid when converted to twips and back
-            //as RichTextBox internally uses twips for font height
-            var points = Math.Round(sizeInPoints * 20) / 20;
+            //Setup font parameters
+            var charformat2 = new NativeMethods.CHARFORMAT2W()
+            {
+                cbSize = (uint)Marshal.SizeOf(typeof(NativeMethods.CHARFORMAT2W)),
+                dwMask = NativeMethods.CFM_MASK.CFM_SIZE,
+                yHeight = (int)(sizeInPoints * 20)
+            };
 
-            //RichTextBox requires halfpoints to have no decimal,
-            //so cast to int to drop the decimal after soubling.
-            //This allows sizeInPoints to be a 1/2 size (.5).
-            var halfPoints = (int)(points * 2);
-
-            //Save the existing ZoomFactor value, as setting the .Rtf property
-            //resets the ZoomFactor back to 1.0f.
-            var tmpZoomFactor = richTextBox.ZoomFactor;
-
-            //Replace any instances of "\fsSIZE-IN-HALF-POINTS" that is not
-            //preceeded by another "\" with the new size.
-            richTextBox.Rtf = Regex.Replace(richTextBox.Rtf,
-                    @"(?<!\\)\\fs\d+",
-                    m => $@"\fs{halfPoints}");
-
-            //Changing the RTF resets the zoom factor back to 1
-            //but does not update the backing variable, so set
-            //it twice to ensure the zoom factor is correct.
-            richTextBox.ZoomFactor = 1.0f;
-            richTextBox.ZoomFactor = tmpZoomFactor;
+            //Send message to richtextbox
+            NativeMethods.SendMessage(richTextBox.Handle, NativeMethods.EM_SETCHARFORMAT,
+                selectionOnly ? NativeMethods.SCF_SELECTION : NativeMethods.SCF_ALL,
+                ref charformat2);
         }
     }
 }
