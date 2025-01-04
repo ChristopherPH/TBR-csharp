@@ -123,7 +123,7 @@ namespace TheBlackRoom.WinForms.Utility
             //RichTextBox requires halfpoints to have no decimal,
             //so cast to int to drop the decimal after soubling.
             //This allows sizeInPoints to be a 1/2 size (.5).
-            var halfPoints = (int)(points * 2);
+            var halfPoints = (int)(points * 2); //TODO: Use GetRtfFontSize() to calculate halfPoints
 
             //escape rtf control characters
             Message = Message.Replace(@"\", @"\\");
@@ -308,5 +308,31 @@ namespace TheBlackRoom.WinForms.Utility
         /// RTF control codes for generating a newline
         /// </summary>
         public static string RtfNewline => @"{\rtf1\ansi \line}";
+
+
+        /// <summary>
+        /// Returns the RTF fontsize (\fs) given a font's size in points
+        /// (This mimics how the RichTextBox determines the RTF fontsize)
+        /// </summary>
+        /// <param name="SizeInPoints"></param>
+        /// <param name="dpi"></param>
+        /// <returns>Font Size in HalfPoints</returns>
+        public static int GetRtfFontSize(float SizeInPoints, int dpi = 96)
+        {
+            //Convert size to pixels based on the dpi
+            //and round to nearest whole number
+            var pixels = Math.Round(SizeInPoints * dpi / 72);
+
+            //Convert rounded pixels back to points
+            var points = pixels * 72 / dpi;
+
+            //Convert to halfpoints, used by RTF
+            var halfPoints = points * 2;
+
+            //Round halfpoints, and round .5 up to next number
+            halfPoints = Math.Round(halfPoints, MidpointRounding.AwayFromZero);
+
+            return (int)halfPoints;
+        }
     }
 }
