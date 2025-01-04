@@ -56,7 +56,6 @@ namespace TheBlackRoom.WinForms.Controls
     /// </summary>
     public class ExtendedRichTextBox : RichTextBox
     {
-
         /// <summary>
         /// Saved RTF string from RichTextBox control
         /// </summary>
@@ -68,6 +67,9 @@ namespace TheBlackRoom.WinForms.Controls
         /// </summary>
         public event EventHandler<EventArgs> TextFormattingRestored;
 
+        /// <summary>
+        /// Flag to maintain existing RTF text formatting and colours when the font changes
+        /// </summary>
         [DisplayName("Maintain Text Formatting")]
         [Category("Behavior")]
         [Description("Maintain existing RTF text formatting and colours when the font changes")]
