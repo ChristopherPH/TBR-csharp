@@ -29,14 +29,14 @@ namespace TheBlackRoom.WinForms.Utility
     /* Notes when encoding into RTF:
      *
      * If the RTF fontsize is not specified, the RTF spec defaults the
-     * size at 24 1/2 points.
+     * size at 24 half points (12 points).
      *
      * Notes specifically for the WinForms RichTextBox control:
      *
      * - The RTF colour and font tables will persist when setting the
      *   RTF via the `.Rtf` or `.SelectedRtf` properties, and will be
-     *   cleared when setting the `.Text` property or by using the
-     *   `.Clear()` method.
+     *   cleared when setting the `.Text` property to empty or by using
+     *   the `.Clear()` method.
      *
      * - When setting the `.Rtf` or `.SelectedRtf` properties, and the
      *   RTF string does not contain a font table:
