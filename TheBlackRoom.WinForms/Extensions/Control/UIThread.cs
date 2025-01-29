@@ -93,6 +93,12 @@ namespace TheBlackRoom.WinForms.Extensions
                     //while waiting to invoke the control
                     global::System.Diagnostics.Debug.Print($"{ctrl?.GetType().Name}:{ctrl?.Name} disposed during invoke");
                 }
+                catch (InvalidOperationException)
+                {
+                    //Catch InvalidOperationException for case when control IsDisposed=true but IsHandleCreated==false
+                    //TODO: Determine why this case did not generate an ObjectDisposedException
+                    global::System.Diagnostics.Debug.Print($"{ctrl?.GetType().Name}:{ctrl?.Name} no handle during invoke");
+                }
 
                 return true;
             }
