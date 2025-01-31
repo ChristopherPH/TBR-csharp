@@ -111,6 +111,20 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         }
 
         /// <summary>
+        /// Returns the default Font of the Item/SubItem
+        /// </summary>
+        public Font Font
+        {
+            get
+            {
+                if ((SubItemEventArgs.Item != null) && (SubItemEventArgs.Item.UseItemStyleForSubItems))
+                    return SubItemEventArgs.Item.Font;
+                else
+                    return SubItemEventArgs.SubItem.Font;
+            }
+        }
+
+        /// <summary>
         /// Draws the background of the item.
         /// </summary>
         public void DrawBackground()
@@ -184,19 +198,35 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         /// </summary>
         public void DrawText()
         {
-            DrawText(ForeColor);
+            DrawText(Font, ForeColor);
+        }
+
+        /// <summary>
+        /// Draws the text of the item.
+        /// </summary>
+        public void DrawText(Color foreColor)
+        {
+            DrawText(Font, foreColor);
+        }
+
+        /// <summary>
+        /// Draws the text of the item.
+        /// </summary>
+        public void DrawText(Font font)
+        {
+            DrawText(font, ForeColor);
         }
 
         /// <summary>
         /// Draws the background of the item with the specified color.
         /// </summary>
-        public void DrawText(Color foreColor)
+        public void DrawText(Font font, Color foreColor)
         {
             if (string.IsNullOrEmpty(SubItemEventArgs.SubItem.Text))
                 return;
 
             TextRenderer.DrawText(SubItemEventArgs.Graphics, SubItemEventArgs.SubItem.Text,
-                SubItemEventArgs.SubItem.Font, TextBounds, foreColor, TextFlags);
+                font, TextBounds, foreColor, TextFlags);
         }
 
         /// <summary>
