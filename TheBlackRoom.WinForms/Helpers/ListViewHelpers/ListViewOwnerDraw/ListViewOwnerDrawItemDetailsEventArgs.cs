@@ -192,7 +192,7 @@ namespace TheBlackRoom.WinForms.Helpers.ListViewHelpers.ListViewOwnerDraw
         /// </summary>
         public void DrawText(Color foreColor)
         {
-            if (string.IsNullOrEmpty(SubItemEventArgs.Item.Text))
+            if (string.IsNullOrEmpty(SubItemEventArgs.SubItem.Text))
                 return;
 
             TextRenderer.DrawText(SubItemEventArgs.Graphics, SubItemEventArgs.SubItem.Text,
