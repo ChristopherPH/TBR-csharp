@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\TextBoxBase\TextBoxBase_Scrolling.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxMouseWheelScrollHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListBoxHelpers\ListBoxIBindingListHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewContent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawColumnHeaderEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ListViewHelpers\ListViewOwnerDraw\ListViewOwnerDrawItemDetailsEventArgs.cs" />
