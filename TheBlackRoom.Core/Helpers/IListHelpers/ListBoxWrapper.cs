@@ -38,7 +38,7 @@ namespace TheBlackRoom.Core.Helpers.IListHelpers
     /// - Selected Index
     /// - Select Next/Prev/Top/Bottom/Page, CanSelect Next/Prev
     /// - Top Index
-    /// - Scroll Next/Prev/Top/Bottom/Page, CanSCroll Next/Prev
+    /// - Scroll Next/Prev/Top/Bottom/Page, CanScroll Next/Prev
     /// - Support for partial display of last item
     /// - Events and methods to map to System.Windows.Forms.Scrollbar control
     ///
@@ -130,7 +130,7 @@ namespace TheBlackRoom.Core.Helpers.IListHelpers
             get => _SelectedIndex;
             set
             {
-                //contrain value to -1, or from 0-ListItemCount-1)
+                //constrain value to -1, or from 0-ListItemCount-1)
                 var constrainedIndex = (ListItems == null) ? -1 :
                     Math.Max(-1, Math.Min(ListItems.Count - 1, value));
 
