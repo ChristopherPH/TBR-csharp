@@ -39,13 +39,14 @@ namespace TheBlackRoom.WinForms.Controls
      * When the .Font property is changed, the RichTextBox will update the font
      * of the underlying Win32 control first, and then update the .Net wrapper
      * control after. This means that OnFontChanged() is called after the
-     * internal RTF text of the Win32 control has been updated.
+     * internal RTF text of the Win32 control has already been updated.
      *
-     * When the parent font is changed (and the RichTextBox has no font set)
-     * the .Font property setter is not called, and so OnFontChanged() is
+     * When the parent font is changed and the RichTextBox has no font set
+     * (it is using an ambient font property), the .Font property setter
+     * is not called. OnFontChanged() is still called in this case, but it is
      * called before the underlying Win32 font has been updated. This means
      * that the internal RTF text of the Win32 control has not been updated
-     * inside OnFontChanged().
+     * when inside OnFontChanged().
      */
 
     /// <summary>
@@ -78,6 +79,10 @@ namespace TheBlackRoom.WinForms.Controls
 
         public override Font Font
         {
+            /* Note: The font property is an ambient property. If the font
+             *       property is not manually set, the font property will
+             *       walk the parent controls and return the first set font.
+             */
             get => base.Font;
             set
             {
@@ -85,13 +90,28 @@ namespace TheBlackRoom.WinForms.Controls
                  * updating the font of the underlying Win32 control. This
                  * will ensure the RTF string has not yet been updated with the
                  * new font. */
-                if (MaintainTextFormatting)
-                    _savedRtf = this.Rtf;
+                _savedRtf = MaintainTextFormatting ? this.Rtf : null;
 
+                /* Set the font property, to update the underlying control
+                 * and restore the RTF formatting from inside OnFontChanged().
+                 *
+                 * If the font is currently unset, and the new font is the same
+                 * as the ambient font value, the RTF formatting will be lost
+                 * during the font update. In this case, the RTF will not get
+                 * restored as OnFontChanged() does not get called when setting
+                 * the font to the same font. */
                 base.Font = value;
+
+                /* If the saved RTF was not cleared due to OnFontChanged() not
+                 * triggering, restore the RTF formatting and clear it. */
+                if (_savedRtf != null)
+                {
+                    RestoreTextFormatting(_savedRtf, false, EventArgs.Empty);
+
+                    _savedRtf = null;
+                }
             }
         }
-
 
         protected override void OnFontChanged(EventArgs e)
         {
@@ -100,16 +120,18 @@ namespace TheBlackRoom.WinForms.Controls
              * normal */
             if (!MaintainTextFormatting || (TextLength == 0))
             {
-                //Clear any saved RTF data
+                /* Clear any saved RTF data */
                 _savedRtf = null;
 
-                //This will set any existing text to the new font and style
+                /* Setting the underlying font causes the RTF formatting loss
+                 * (colours and formatting), and sets any existing text to the
+                 * new font and style. */
                 base.OnFontChanged(e);
 
                 return;
             }
 
-            /* Save the RTF string of the RichTextBox if it wasn't previously
+            /* Get the RTF string of the RichTextBox if it wasn't previously
              * saved.
              *
              * A manual font change will have previously saved the RTF string
@@ -125,13 +147,18 @@ namespace TheBlackRoom.WinForms.Controls
              * Saving the RTF string allows the formatting to be restored
              * after calling base.OnFontChanged(), which removes existing
              * colours and formatting. */
-            var savedRTF = _savedRtf ?? this.Rtf;
-            _savedRtf = null;
+            RestoreTextFormatting(_savedRtf ?? this.Rtf, true, e);
 
+            _savedRtf = null;
+        }
+
+        private void RestoreTextFormatting(string savedRTF,
+            bool triggerOnFontChanged, EventArgs e)
+        {
+            /* Save properties that are reset by setting the RTF */
             var savedSelectionStart = this.SelectionStart;
             var savedSelectionLength = this.SelectionLength;
             var savedScrollPosition = this.GetScrollPosition();
-
 
             /* HACK: Save the zoom factor as setting the .Rtf property resets
              *       the ZoomFactor back to 1 */
@@ -144,11 +171,20 @@ namespace TheBlackRoom.WinForms.Controls
              * reparse the RTF data. This also ensures that setting the .Rtf
              * property with the savedRTF will trigger a full reparse of the
              * RTF string (if the RTF string does not change, then the
-             * RichTextBox control ignores the property change. */
+             * RichTextBox control ignores the property change). */
             base.Rtf = null;
 
-            // Note: This line here causes the RTF formatting loss
-            base.OnFontChanged(e);
+            /* If this method is called from OnFontChanged(), the base method
+             * needs to be triggered to change the font. If this method is
+             * called by setting the font property and OnFontChanged() didn't
+             * trigger, don't call OnFontChanged() as the font has already
+             * changed. */
+            if (triggerOnFontChanged)
+            {
+                /* Setting the underlying font causes the RTF formatting loss
+                 * (colours and formatting) */
+                base.OnFontChanged(e);
+            }
 
             /* Restore the saved RTF. Note that this resets the RTF font sizes
              * to those saved inside the RTF string rather that what is cached
@@ -163,13 +199,13 @@ namespace TheBlackRoom.WinForms.Controls
             base.ZoomFactor = 1.0f;
             base.ZoomFactor = savedZoomFactor;
 
-            //Restore selection
+            /* Restore selection */
             this.Select(savedSelectionStart, savedSelectionLength);
 
-            //Restore scroll position
+            /* Restore scroll position */
             this.SetScrollPosition(savedScrollPosition);
 
-            //Restore drawing with the current position
+            /* Restore drawing with the current position */
             this.EnableRedraw(true);
 
             /* Raise an event once the RTF and ZoomFactor have been restored
@@ -212,16 +248,16 @@ namespace TheBlackRoom.WinForms.Controls
                  *           this.SelectedRtf = value;
                  */
 
-                //Save current zoom factor
+                /* Save current zoom factor */
                 var savedZoomFactor = this.ZoomFactor;
 
-                //Set .Rtf, which resets the zoom factor internally to 1
+                /* Set .Rtf, which resets the zoom factor internally to 1 */
                 base.Rtf = value;
 
-                //Set backing variable to 1 to match internal zoom factor
+                /* Set backing variable to 1 to match internal zoom factor */
                 base.ZoomFactor = 1.0f;
 
-                //Restore saved zoom factor
+                /* Restore saved zoom factor */
                 base.ZoomFactor = savedZoomFactor;
             }
         }
@@ -239,16 +275,16 @@ namespace TheBlackRoom.WinForms.Controls
                  *       well. */
                 if (string.IsNullOrEmpty(value))
                 {
-                    //Save current zoom factor
+                    /* Save current zoom factor */
                     var savedZoomFactor = ZoomFactor;
 
-                    //Clear text, which resets the zoom factor internally to 1
+                    /* Clear text, which resets the zoom factor internally to 1 */
                     base.Text = value;
 
-                    //Set backing variable to 1 to match internal zoom factor
+                    /* Set backing variable to 1 to match internal zoom factor */
                     base.ZoomFactor = 1.0f;
 
-                    //Restore saved zoom factor
+                    /* Restore saved zoom factor */
                     base.ZoomFactor = savedZoomFactor;
                 }
                 else
