@@ -90,7 +90,7 @@ namespace TheBlackRoom.WinForms.Controls
                  * updating the font of the underlying Win32 control. This
                  * will ensure the RTF string has not yet been updated with the
                  * new font. */
-                _savedRtf = MaintainTextFormatting ? this.Rtf : null;
+                _savedRtf = (MaintainTextFormatting && (TextLength > 0)) ? this.Rtf : null;
 
                 /* Set the font property, to update the underlying control
                  * and restore the RTF formatting from inside OnFontChanged().
